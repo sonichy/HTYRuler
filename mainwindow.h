@@ -22,12 +22,14 @@ private:
     bool isMLBD;
     QPoint m_point;
     QSettings settings;
+    qreal angle;
     void mousePressEvent(QMouseEvent *event);
     void mouseMoveEvent(QMouseEvent *event);
     void mouseReleaseEvent(QMouseEvent *event);
     void readSettings();
 
 private slots:
+    void about();
     void lengthen();
     void shorten();
     void reset();
@@ -36,7 +38,9 @@ private slots:
     void moveRight();
     void moveUp();
     void moveDown();
-    void about();
+    void rotateCW();
+    void rotateCCW();
+
 };
 
 #endif // MAINWINDOW_H

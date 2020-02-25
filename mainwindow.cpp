@@ -24,6 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     if(width == 0) width = 500;
     int height = settings.value("height").toInt();
     if(height == 0) height = 100;
+    angle = settings.value("angle").toReal();
     setFixedSize(width, height);
     setWindowFlags(Qt::FramelessWindowHint);
     readSettings();
@@ -49,12 +50,20 @@ MainWindow::MainWindow(QWidget *parent)
     connect(new QShortcut(QKeySequence(Qt::Key_Right),this), SIGNAL(activated()), this, SLOT(moveRight()));
     connect(new QShortcut(QKeySequence(Qt::Key_Up),this), SIGNAL(activated()), this, SLOT(moveUp()));
     connect(new QShortcut(QKeySequence(Qt::Key_Down),this), SIGNAL(activated()), this, SLOT(moveDown()));
-
+    connect(new QShortcut(QKeySequence(Qt::Key_X),this), SIGNAL(activated()), this, SLOT(rotateCW()));
+    connect(new QShortcut(QKeySequence(Qt::Key_Z),this), SIGNAL(activated()), this, SLOT(rotateCCW()));
 }
 
 MainWindow::~MainWindow()
 {
 
+}
+
+void MainWindow::about()
+{
+    QMessageBox MB(QMessageBox::NoIcon, "关于", "海天鹰尺子 1.0\n一款基于 Qt 的图片测量工具。\n作者：海天鹰\nE-mail: sonichy@163.com\n主页：https://github.com/sonichy\n\n快捷键：\nCtrl + ← 缩短尺子\nCtrl + → 加长尺子\n← 左移一个像素\n→ 右移一个像素\n↑ 上移一个像素\n↓ 下移一个像素");
+    MB.setIconPixmap(QPixmap(":/HTYRuler.png"));
+    MB.exec();
 }
 
 void MainWindow::paintEvent(QPaintEvent *)
@@ -67,6 +76,7 @@ void MainWindow::paintEvent(QPaintEvent *)
 
     QPainter painter(this);
     painter.setRenderHint(QPainter::Antialiasing, true);
+    painter.rotate(angle);
     // face
     painter.setPen(QPen(Qt::black, 2));
     painter.setBrush(QBrush(Qt::white));
@@ -169,6 +179,8 @@ void MainWindow::reset()
     setFixedSize(500, 100);
     settings.setValue("width", width());
     settings.setValue("height", height());
+    angle = 0;
+    settings.setValue("angle", angle);
     update();
 }
 
@@ -260,9 +272,16 @@ void MainWindow::moveDown()
     move(x(), y() + 1);
 }
 
-void MainWindow::about()
+void MainWindow::rotateCW()
 {
-    QMessageBox MB(QMessageBox::NoIcon, "关于", "海天鹰尺子 1.0\n一款基于 Qt 的图片测量工具。\n作者：海天鹰\nE-mail: sonichy@163.com\n主页：https://github.com/sonichy\n\n快捷键：\nCtrl + ← 缩短尺子\nCtrl + → 加长尺子\n← 左移一个像素\n→ 右移一个像素\n↑ 上移一个像素\n↓ 下移一个像素");
-    MB.setIconPixmap(QPixmap(":/HTYRuler.png"));
-    MB.exec();
+    angle++; //窗口未旋转
+    settings.setValue("angle", angle);
+    update();
+}
+
+void MainWindow::rotateCCW()
+{
+    angle--;
+    settings.setValue("angle", angle);
+    update();
 }
