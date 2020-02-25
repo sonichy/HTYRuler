@@ -262,7 +262,7 @@ void MainWindow::moveDown()
 
 void MainWindow::about()
 {
-    QMessageBox MB(QMessageBox::NoIcon, "关于", "海天鹰尺子 1.0\n一款基于 Qt 的屏幕测量工具。\n作者：海天鹰\nE-mail: sonichy@163.com\n主页：https://github.com/sonichy\n\n快捷键：\nCtrl + ← 缩短尺子\nCtrl + → 加长尺子\n← 左移一个像素\n→ 右移一个像素\n↑ 上移一个像素\n↓ 下移一个像素");
+    QMessageBox MB(QMessageBox::NoIcon, "关于", "海天鹰尺子 1.0\n一款基于 Qt 的图片测量工具。\n作者：海天鹰\nE-mail: sonichy@163.com\n主页：https://github.com/sonichy\n\n快捷键：\nCtrl + ← 缩短尺子\nCtrl + → 加长尺子\n← 左移一个像素\n→ 右移一个像素\n↑ 上移一个像素\n↓ 下移一个像素");
     MB.setIconPixmap(QPixmap(":/HTYRuler.png"));
     MB.exec();
 }
