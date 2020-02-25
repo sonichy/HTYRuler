@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>HTYRuler.png</file>
+    </qresource>
+</RCC>
